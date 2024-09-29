@@ -22,6 +22,7 @@ import SingleProduct from './pages/SingleProduct'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 
+
 function App() {
 
   return (
