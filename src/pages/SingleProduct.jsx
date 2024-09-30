@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
 import ReactImageZoom from "react-image-zoom";
@@ -11,30 +11,49 @@ import { AiOutlineHeart } from "react-icons/ai";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct } from "../features/products/productSlice";
-import {toast} from 'react-toastify'
-import { addProdToCart } from "../features/user/userSlice";
+import { toast } from "react-toastify";
+import { addProdToCart, getUserCart } from "../features/user/userSlice";
 
 const SingleProduct = () => {
-  const [color,setColor] = useState(null)
-  const [quantity,setQuantity] = useState(1)
+  const [color, setColor] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
+  const productState = useSelector((state) => state?.product?.singleproduct);
+  const cartState = useSelector((state) => state?.auth?.cartProducts);
   const location = useLocation();
+  const navigate = useNavigate();
   const getProductId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAProduct(getProductId));
-  },[]);
+    dispatch(getUserCart());
+  }, []);
+
+  useEffect(() => {
+    for (let index = 0; index < cartState.length; index++) {
+      if (getProductId === cartState[index]?.productId?._id) {
+        setAlreadyAdded(true);
+      }
+    }
+  }, []);
 
   const uploadCart = () => {
-    if(color === null){
-      toast.error('please chose a color')
-      return false
-    } else{
-      dispatch(addProdToCart({productId: productState?._id,quantity,price:productState?.price}))
+    if (color === null) {
+      toast.error("please chose a color");
+      return false;
+    } else {
+      dispatch(
+        addProdToCart({
+          productId: productState?._id,
+          quantity,
+          price: productState?.price,
+        })
+      );
+      navigate('/cart');
     }
-  }
+  };
 
-  const productState = useSelector((state) => state?.product?.singleproduct);
   const [orderedProduct, setOrderedProduct] = useState(true);
   const props = {
     width: 400,
@@ -140,26 +159,49 @@ const SingleProduct = () => {
                   </div>
                 </div>
 
-                <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                  <h3 className="product-heading">Color :</h3>
-                  <Color setColor={setColor} colorData={productState?.color} />
-                </div>
+                {alreadyAdded === false && (
+                  <>
+                    <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                      <h3 className="product-heading">Color :</h3>
+                      <Color
+                        setColor={setColor}
+                        colorData={productState?.color}
+                      />
+                    </div>
+                  </>
+                )}
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                  <h3 className="product-heading">Quantity :</h3>
-                  <div>
-                    <input
-                      type="number"
-                      className="form-control"
-                      min={1}
-                      max={10}
-                      style={{ width: "70px" }}
-                      onChange={(e) => setQuantity(e.target.value)}
-                      value={quantity}
-                    />
-                  </div>
-                  <div className="d-flex align-items-center gap-30 ms-5">
-                    <button onClick={() => uploadCart(productState?._id)} className="button border-0" type="submit">
-                      Add To Cart
+                  {alreadyAdded === false && (
+                    <>
+                      <h3 className="product-heading">Quantity :</h3>
+                      <div>
+                        <input
+                          type="number"
+                          className="form-control"
+                          min={1}
+                          max={10}
+                          style={{ width: "70px" }}
+                          onChange={(e) => setQuantity(e.target.value)}
+                          value={quantity}
+                        />
+                      </div>
+                    </>
+                  )}
+                  <div
+                    className={
+                      alreadyAdded
+                        ? "ms-0"
+                        : "ms-5" + "d-flex align-items-center gap-30 ms-5"
+                    }
+                  >
+                    <button
+                      onClick={() => {
+                        alreadyAdded ? navigate("/cart") : uploadCart();
+                      }}
+                      className="button border-0"
+                      type="submit"
+                    >
+                      {alreadyAdded ? "Go To Cart" : "Add To Cart"}
                     </button>
                     <button to="/signup" className="button signup">
                       By It Now
