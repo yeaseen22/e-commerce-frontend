@@ -5,30 +5,36 @@ import { Link } from 'react-router-dom'
 import Container from '../components/Container';
 import CustomInput from '../components/CustomInput';
 import { useFormik } from 'formik';
-// import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 
-// const loginSchema = yup.object({
+const loginSchema = yup.object({
 
-//     // email: yup.string().email("Email Should Be Valid").required("Email Address Is Required"),
-//     // password: yup.string().required('Password Is Required')
-// });
+    email: yup.string().email("Email Should Be Valid").required("Email Address Is Required"),
+    password: yup.string().required('Password Is Required')
+});
 
 
 const Login = () => {
-
+    const authState = useSelector((state) => state?.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        // validationSchema: loginSchema,
+        validationSchema: loginSchema,
         onSubmit: (values) => {
            dispatch(loginUser(values))
-
+            setTimeout(() => {
+                if(authState?.isSuccess){
+                    navigate('/')
+                }
+            },300)
         },
     });
 
