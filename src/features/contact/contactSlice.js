@@ -42,7 +42,7 @@ export const contactSlice = createSlice({
             if(state.isSuccess === true){
                 toast.success('Contact Form submitted successfully')
             }
-        }).addCase(createQuery.pending, (state, action) => {
+        }).addCase(createQuery.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.isSuccess = false;

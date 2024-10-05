@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import CustomInput from '../components/CustomInput';
 import { useFormik } from 'formik';
-// import * as yup from 'yup';
+import * as yup from 'yup';
 import { useDispatch,useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { registerUser } from '../features/user/userSlice';
 
-// const signUpSchema = yup.object({
-//     // firstName: yup.string().required('First Name Is Required'),
-//     // lastname: yup.string().required('Last Name Is Required'),
-//     // email: yup.string().email("Email Should Be Valid").required('Email Address Is Required'),
-//     // mobile: yup.string().required('Mobile No Is Required'),
-//     // password: yup.string().required('Password Is Required')
-// });
+const signUpSchema = yup.object({
+    firstName: yup.string().required('First Name Is Required'),
+    lastname: yup.string().required('Last Name Is Required'),
+    email: yup.string().email("Email Should Be Valid").required('Email Address Is Required'),
+    mobile: yup.string().required('Mobile No Is Required'),
+    password: yup.string().required('Password Is Required')
+});
 
 
 
@@ -31,7 +31,7 @@ const SignUp = () => {
             mobile: '',
             password: ''
         },
-        // validationSchema: signUpSchema,
+        validationSchema: signUpSchema,
         onSubmit: (values) => {
             dispatch(registerUser(values))
         },

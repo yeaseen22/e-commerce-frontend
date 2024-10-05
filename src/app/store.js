@@ -6,7 +6,7 @@ import contactReducer from '../features/contact/contactSlice'
 
 export const store = configureStore({
     reducer: {
-        auth: authReducer,
+        // auth: authReducer,
         product: productReducer,
         blog: blogReducer,
         contact: contactReducer

@@ -5,20 +5,20 @@ import { AiOutlineHome, AiOutlineMail } from "react-icons/ai";
 import { BiPhoneCall, BiInfoCircle } from "react-icons/bi";
 import Container from "../components/Container";
 import { useFormik } from "formik";
-// import * as yup from 'yup';
+import * as yup from 'yup';
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 import { createQuery } from "../features/contact/contactSlice";
 
-// const contactSchema = yup.object({
-//   // name: yup.string().required("First Name Is Required"),
-//   // email: yup
-//   //   .string()
-//   //   .email("Email Should Be Valid")
-//   //   .required("Email Address Is Required"),
-//   // mobile: yup.string().required("Mobile No Is Required"),
-//   // comment: yup.string().required("comment Is Required"),
-// });
+const contactSchema = yup.object({
+  name: yup.string().required("First Name Is Required"),
+  email: yup
+    .string()
+    .email("Email Should Be Valid")
+    .required("Email Address Is Required"),
+  mobile: yup.string().required("Mobile No Is Required"),
+  comment: yup.string().required("comment Is Required"),
+});
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Contact = () => {
       mobile: "",
       comment: "",
     },
-    // validationSchema: contactSchema,
+    validationSchema: contactSchema,
     onSubmit: (values) => {
       dispatch(createQuery(values));
     },

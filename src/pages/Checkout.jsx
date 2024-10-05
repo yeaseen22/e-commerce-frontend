@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import { Link } from "react-router-dom";
@@ -6,19 +6,19 @@ import { BiArrowBack } from "react-icons/bi";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import axion from 'axios'
-import {config} from  "../utils/axiosConfig"
+import * as yup from "yup";
+import axios from 'axios'
+// import {config} from  "../utils/axiosConfig"
 import { createAnOrder } from "../features/user/userSlice";
 
-const shippingSchema = Yup.object({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  address: Yup.string().required("Address is required"),
-  country: Yup.string().required("Country is required"),
-  state: Yup.string().required("state is required"),
-  city: Yup.string().required("City is required"),
-  zipCode: Yup.number().required("ZipCode is required"),
+const shippingSchema = yup.object({
+  firstName: yup.string().required("First Name is required"),
+  lastName: yup.string().required("Last Name is required"),
+  address: yup.string().required("Address is required"),
+  country: yup.string().required("Country is required"),
+  state: yup.string().required("state is required"),
+  city: yup.string().required("City is required"),
+  zipCode: yup.number().required("ZipCode is required"),
 });
 
 const Checkout = () => {
@@ -82,7 +82,7 @@ const Checkout = () => {
       alert("Razer Pay SDK failed to load")
       return 
     }
-    const result = await axion.post("http://localhost:4000/api/user/order/checkout")
+    const result = await axios.post("http://localhost:4000/api/user/order/checkout")
     if(!result){
       alert("Something went wrong")
       return

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Meta from '../components/Meta'
 import BreadCrumb from '../components/BreadCrumb'
 import { Link, useLocation } from 'react-router-dom';
-import BlogCard from '../components/BlogCard';
+// import BlogCard from '../components/BlogCard';
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import Container from '../components/Container';
 import { useDispatch, useSelector } from 'react-redux';
