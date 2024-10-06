@@ -140,7 +140,7 @@ const Checkout = () => {
                   <select
                     value={formik.values.country}
                     onChange={formik.handleChange("country")}
-                    onBlur={formik.onBlur("country")}
+                    onBlur={formik.handleBlur("country")}
                     name="country"
                     className="form-control form-select"
                     id=""
@@ -163,7 +163,7 @@ const Checkout = () => {
                     className="form-control"
                     value={formik.values.firstName}
                     onChange={formik.handleChange("firstName")}
-                    onBlurCapture={formik.onBlur("firstName")}
+                    onBlurCapture={formik.handleBlur("firstName")}
                     name="firstName"
                   />
                   <div className="error">
@@ -175,7 +175,7 @@ const Checkout = () => {
                     name="lastName"
                     value={formik.values.lastName}
                     onChange={formik.handleChange("lastName")}
-                    onBlur={formik.onBlur("lastName")}
+                    onBlur={formik.handleBlur("lastName")}
                     placeholder="Last Name"
                     type="text"
                     className="form-control"
@@ -192,7 +192,7 @@ const Checkout = () => {
                     name="aaddress"
                     value={formik.values.address}
                     onChange={formik.handleChange("address")}
-                    onBlur={formik.onBlur("address")}
+                    onBlur={formik.handleBlur("address")}
                   />
                   <div className="error">
                     {formik?.touched?.address && formik?.errors?.address}
@@ -206,7 +206,7 @@ const Checkout = () => {
                     name="other"
                     value={formik.values.other}
                     onChange={formik.handleChange("other")}
-                    onBlur={formik.onBlur("onter")}
+                    onBlur={formik.handleBlur("onter")}
                   />
                   <div className="error">
                     {formik?.touched?.other && formik?.errors?.other}
@@ -220,7 +220,7 @@ const Checkout = () => {
                     name="city"
                     value={formik.values.city}
                     onChange={formik.handleChange("city")}
-                    onBlur={formik.onBlur("city")}
+                    onBlur={formik.handleBlur("city")}
                   />
                   <div className="error">
                     {formik?.touched?.city && formik?.errors?.city}
@@ -229,7 +229,7 @@ const Checkout = () => {
                 <div className="flex-grow-1">
                   <select
                     name="state"
-                    value={formik.state.values}
+                    value={formik.values.values}
                     onChange={formik.handleChange("state")}
                     onBlur={formik.handleBlur("state")}
                     className="form-control form-select"
@@ -254,7 +254,7 @@ const Checkout = () => {
                     name="zipCode"
                     value={formik.values.zipCode}
                     onChange={formik.handleChange("zipCode")}
-                    onBlur={formik.onBlur("zipCode")}
+                    onBlur={formik.handleBlur("zipCode")}
                   />
                   <div className="error">
                     {formik?.touched?.zipCode && formik?.errors?.zipCode}

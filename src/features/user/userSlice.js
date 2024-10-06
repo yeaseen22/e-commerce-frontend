@@ -90,6 +90,51 @@ export const createAnOrder = createAsyncThunk(
   }
 );
 
+export const getOrders = createAsyncThunk(
+  "user/order/get",
+  async ( thunkAPI) => {
+    try {
+      return await authService.getUserOrders();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "user/profile/get",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.updateUser(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "user/password/token",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.forgotPasswordToken(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "user/password/reset",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.resetPass(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+
 const getCustomerfromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
@@ -261,7 +306,87 @@ export const authSlice = createSlice({
         if (state.isSuccess === false) {
           toast.error("Product Not Updated From Cart Successfully");
         }
-      });
+      })
+      .addCase(getOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.getOrderProducts = action.payload;
+       
+      })
+      .addCase(getOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedUser = action.payload;
+        if(state.isSuccess){
+          toast.success("Profile Updated Successfully");
+        }
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        if(state.isSuccess === false){
+          toast.error("Profile Not Updated Successfully");
+        }
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.token = action.payload;
+        if(state.isSuccess){
+          toast.success("Email Send Successfully");
+        }
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        if(state.isSuccess === false){
+          toast.error("Email Not Send Successfully");
+        }
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.pass = action.payload;
+        if(state.isSuccess){
+          toast.success("Password Updated Successfully");
+        }
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        if(state.isSuccess === false){
+          toast.error("Email Not Send Successfully");
+        }
+      })
 
   },
 });

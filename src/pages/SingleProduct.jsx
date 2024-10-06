@@ -10,7 +10,11 @@ import Color from "../components/Color";
 import { AiOutlineHeart } from "react-icons/ai";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { getAProduct } from "../features/products/productSlice";
+import {
+  addRating,
+  getAllProducts,
+  getAProduct,
+} from "../features/products/productSlice";
 import { toast } from "react-toastify";
 import { addProdToCart, getUserCart } from "../features/user/userSlice";
 
@@ -19,15 +23,19 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
   const productState = useSelector((state) => state?.product?.singleproduct);
+  const productsStates = useSelector((state) => state?.product?.product);
+
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const location = useLocation();
   const navigate = useNavigate();
   const getProductId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
+  const [popularProducts, setPopularProducts] = useState([]);
 
   useEffect(() => {
     dispatch(getAProduct(getProductId));
     dispatch(getUserCart());
+    dispatch(getAllProducts());
   }, []);
 
   useEffect(() => {
@@ -37,6 +45,36 @@ const SingleProduct = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    let data = [];
+    for (let index = 0; index < productsStates.length; index++) {
+      const element = productsStates[index];
+      if (element.tags === "popular") {
+        data.push(element);
+      }
+      setPopularProducts(data);
+    }
+  }, [productState]);
+
+  const [star, setStar] = useState(null);
+  const [comment, setComment] = useState(null);
+  const addRatingToProduct = () => {
+    if (star === null) {
+      toast.error("please give rating");
+      return false;
+    } else if (comment === null) {
+      toast.error("please write comment about product");
+      return false;
+    } else {
+      dispatch(
+        addRating({ star: star, comment: comment, prodId: getProductId })
+      );
+      setTimeout(() => {
+        dispatch(getAProduct(getProductId));
+      }, 300);
+    }
+  };
 
   const uploadCart = () => {
     if (color === null) {
@@ -50,7 +88,7 @@ const SingleProduct = () => {
           price: productState?.price,
         })
       );
-      navigate('/cart');
+      navigate("/cart");
     }
   };
 
@@ -76,7 +114,7 @@ const SingleProduct = () => {
   return (
     <>
       <Meta title="Product Name" />
-      <BreadCrumb title="Product Name" />
+      <BreadCrumb title={productState?.title} />
       <Container class1="main-product-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-6">
@@ -297,6 +335,9 @@ const SingleProduct = () => {
                       value="3"
                       edit={true}
                       activeColor="#ffd700"
+                      onChange={(e) => {
+                        setStar(e);
+                      }}
                     />
                   </div>
                   <div>
@@ -307,30 +348,41 @@ const SingleProduct = () => {
                       name=""
                       className="form-control w-100"
                       id=""
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                      }}
                     ></textarea>
                   </div>
-                  <div className="d-flex justify-content-end">
-                    <button className="button border-0">Submit Review</button>
+                  <div className="d-flex justify-content-end mt-3">
+                    <button
+                      type="button"
+                      onClick={addRatingToProduct}
+                      className="button border-0"
+                    >
+                      Submit Review
+                    </button>
                   </div>
                 </form>
               </div>
               <div className="reviews mt-4">
-                <div className="review">
-                  <div className="d-flex gap-10 align-items-center">
-                    <h6 className="mb-0">Asad</h6>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      value="3"
-                      edit={false}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                  <p className="mt-3">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Et, pariatur!
-                  </p>
-                </div>
+                {productState &&
+                  productState?.ratings?.map((item, index) => {
+                    return (
+                      <div key={index} className="review">
+                        <div className="d-flex gap-10 align-items-center">
+                          <h6 className="mb-0">Asad</h6>
+                          <ReactStars
+                            count={5}
+                            size={24}
+                            value={item?.star}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                        <p className="mt-3">{item?.comment}</p>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -343,10 +395,7 @@ const SingleProduct = () => {
           </div>
         </div>
         <div className="row">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard data={popularProducts} />
         </div>
       </Container>
     </>

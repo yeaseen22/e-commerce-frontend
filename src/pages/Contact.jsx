@@ -64,11 +64,13 @@ const Contact = () => {
                       className="form-control"
                       name="name"
                       onChange={formik.handleChange("name")}
-                      onBlur={formik.onBlur("name")}
+                      onBlur={formik.handleBlur("name")}
                       value={formik.values.name}
                     />
                     <div className="error">
-                      {formik.touched.name && formik.errors.name}
+                      {formik.touched.name && formik.errors.name ? (
+                        <div className="errors">{formik.errors.name}</div>
+                      ) : null}
                     </div>
                   </div>
                   <div>
@@ -79,10 +81,12 @@ const Contact = () => {
                       name="email"
                       onChange={formik.handleChange("email")}
                       onBlur={formik.handleBlur("email")}
-                      value={form.values.email}
+                      value={formik.values.email}
                     />
                     <div className="error">
-                      {formik.touched.email && formik.errors.email}
+                      {formik.touched.email && formik.errors.email ? (
+                        <div className="errors">{formik.errors.email}</div>
+                      ) : null}
                     </div>
                   </div>
                   <div>
@@ -96,7 +100,9 @@ const Contact = () => {
                       value={formik.values.mobile}
                     />
                     <div className="error">
-                      {formik.touched.mobile && formik.errors.mobile}
+                      {formik.touched.mobile && formik.errors.mobile ? (
+                        <div className="errors">{formik.errors.mobile}</div>
+                      ) : null}
                     </div>
                   </div>
                   <div>
@@ -111,7 +117,9 @@ const Contact = () => {
                       onBlur={formik.handleBlur("comment")}
                     ></textarea>
                     <div className="error">
-                      {formik.touched.comment && formik.errors.comment}
+                      {formik.touched.comment && formik.errors.comment ? (
+                        <div className="errors">{formik.errors.comment}</div>
+                      ) : null}
                     </div>
                   </div>
                   <div>

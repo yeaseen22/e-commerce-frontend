@@ -1,13 +1,21 @@
 import React, { useState ,useEffect} from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink,useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import {Typeahead} from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { getAProduct } from "../redux/actions/productAction";
 
 const Header = () => {
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const authState = useSelector((state) => state?.auth);
+  const productState = useSelector((state) => state?.product?.product);
   const [total, setTotal] = useState(null);
+  const [paginate, setPaginare] = useState(true)
+  const [productOpt, setProductOpt] = useState([])
 
   useEffect(() => {
     let sum = 0;
@@ -18,6 +26,23 @@ const Header = () => {
       setTotal(sum);
     }
   }, [cartState]);
+
+  useEffect(() => {
+    let data = [];
+    for(let index=0; index <productState?.length; index++){
+      const element = productState[index];
+      data.push({id: index, prod: element?._id, name: element?.name})
+    }
+    setProductOpt(data)
+  },[productState])
+
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+    window.location.href = "/login";
+  }
+
   return (
     <>
       <header className="header-first-strip py-3">
@@ -49,12 +74,25 @@ const Header = () => {
             </div>
             <div className="col-5">
               <div className="input-group">
-                <input
+                {/* <input
                   type="text"
                   className="form-control py-2"
                   placeholder="Search Product Here..."
                   aria-label="Search Product Here..."
                   aria-describedby="basic-addon2"
+                /> */}
+                <Typeahead 
+                  id="basic-example"
+                  onPaginate={() => console.log()}
+                  options={productOpt}
+                  paginate={paginate}
+                  placeholder="Search Product Here..."
+                  labelKey={"name"}
+                  onChange={(selected) => {
+                    navigate(`/product/${selected[0]?.prod}`)
+                    dispatch(getAProduct(selected[0]?.prod))
+                  }}
+                  minLength={2}
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
                   <BsSearch className="fs-6" />
@@ -69,7 +107,7 @@ const Header = () => {
                             align-items-center justify-content-between"
               >
                 <div>
-                  <Link
+                  {/* <Link
                     to="/compare-product"
                     className="d-flex align-items-center gap-10 text-white"
                   >
@@ -77,7 +115,7 @@ const Header = () => {
                     <p className="mb-0 ">
                       Compare <br /> Product{" "}
                     </p>
-                  </Link>
+                  </Link> */}
                 </div>
                 <div>
                   <Link
@@ -92,7 +130,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to={authState?.user ===null ?  "/login" : ""}
+                    to={authState?.user ===null ?  "/login" : "my-profile"}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="images/user.svg" alt="user" />
@@ -174,8 +212,10 @@ const Header = () => {
                   <d className="d-flex align-items-center gap-15">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/product">Our Store</NavLink>
+                    <NavLink to="/my-orders">Orders</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
+                    <button onClick={handleLogout} type="button" className="border border-0 bg-transparent text-white text-uppercase">Logout</button>
                   </d>
                 </div>
               </div>

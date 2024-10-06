@@ -349,10 +349,10 @@ const Home = () => {
                       </div>
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
-                          <button className="border-0 bg-transparent">
+                          {/* <button className="border-0 bg-transparent">
                             {" "}
                             <img src="images/prodcompare.svg" alt="compare" />
-                          </button>
+                          </button> */}
                           <button
                             onClick={() => naviage("/product/" + item?._id)}
                             className="border-0 bg-transparent"
@@ -360,10 +360,10 @@ const Home = () => {
                             {" "}
                             <img src="images/view.svg" alt="addcart" />
                           </button>
-                          <button className="border-0 bg-transparent">
+                          {/* <button className="border-0 bg-transparent">
                             {" "}
                             <img src="images/add-cart.svg" alt="addcart" />
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
