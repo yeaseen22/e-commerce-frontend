@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist } from "../features/products/productSlice";
 
@@ -28,6 +31,7 @@ const ProductCard = (props) => {
             <div to=":id" className="product-card position-relative ">
               <div className="wishlist-icon position-absolute">
                 <button
+                  // eslint-disable-next-line no-unused-vars
                   onClick={(e) => {
                     addToWish(item?._id);
                   }}

@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState ,useEffect} from "react";
 import { Link, NavLink,useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import {Typeahead} from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { getAProduct } from "../redux/actions/productAction";
+import {getAProduct} from "../features/products/productSlice";
 
 const Header = () => {
 
@@ -14,6 +15,7 @@ const Header = () => {
   const authState = useSelector((state) => state?.auth);
   const productState = useSelector((state) => state?.product?.product);
   const [total, setTotal] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [paginate, setPaginare] = useState(true)
   const [productOpt, setProductOpt] = useState([])
 

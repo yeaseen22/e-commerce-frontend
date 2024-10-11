@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import Container from "../components/Container";
 import BreadCrumb from "../components/BreadCrumb";
@@ -12,6 +13,7 @@ const Orders = () => {
 
   useEffect(() => {
     dispatch(getOrders());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

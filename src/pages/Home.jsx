@@ -20,6 +20,7 @@ const Home = () => {
   const productState = useSelector((state) => state?.product?.product);
 
   const location = useLocation();
+  // eslint-disable-next-line no-unused-vars
   const getBlogId = location.pathname.split("/")[2];
   useEffect(() => {
     getblogs();

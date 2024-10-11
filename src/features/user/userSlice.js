@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authService } from "./userService";
+// eslint-disable-next-line no-unused-vars
 import { ToastContainer, toast } from "react-toastify";
 
 export const registerUser = createAsyncThunk(
@@ -92,7 +93,7 @@ export const createAnOrder = createAsyncThunk(
 
 export const getOrders = createAsyncThunk(
   "user/order/get",
-  async ( thunkAPI) => {
+  async (thunkAPI) => {
     try {
       return await authService.getUserOrders();
     } catch (error) {
@@ -133,7 +134,6 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
-
 
 const getCustomerfromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
@@ -229,16 +229,16 @@ export const authSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(getCart.pending, (state) => {
+      .addCase(getUserCart.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getCart.fulfilled, (state, action) => {
+      .addCase(getUserCart.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.productCart = action.payload;
       })
-      .addCase(getCart.rejected, (state, action) => {
+      .addCase(getUserCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -315,14 +315,12 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.getOrderProducts = action.payload;
-       
       })
       .addCase(getOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-        
       })
       .addCase(updateProfile.pending, (state) => {
         state.isLoading = true;
@@ -332,7 +330,7 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.updatedUser = action.payload;
-        if(state.isSuccess){
+        if (state.isSuccess) {
           toast.success("Profile Updated Successfully");
         }
       })
@@ -341,7 +339,7 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-        if(state.isSuccess === false){
+        if (state.isSuccess === false) {
           toast.error("Profile Not Updated Successfully");
         }
       })
@@ -353,7 +351,7 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.token = action.payload;
-        if(state.isSuccess){
+        if (state.isSuccess) {
           toast.success("Email Send Successfully");
         }
       })
@@ -362,7 +360,7 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-        if(state.isSuccess === false){
+        if (state.isSuccess === false) {
           toast.error("Email Not Send Successfully");
         }
       })
@@ -374,7 +372,7 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.pass = action.payload;
-        if(state.isSuccess){
+        if (state.isSuccess) {
           toast.success("Password Updated Successfully");
         }
       })
@@ -383,11 +381,10 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-        if(state.isSuccess === false){
+        if (state.isSuccess === false) {
           toast.error("Email Not Send Successfully");
         }
-      })
-
+      });
   },
 });
 

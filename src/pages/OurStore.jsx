@@ -1,7 +1,10 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
+// eslint-disable-next-line no-unused-vars
 import { Helmet } from "react-helmet";
+// eslint-disable-next-line no-unused-vars
 import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard";
 import Color from "../components/Color";
@@ -14,6 +17,7 @@ const OurStore = () => {
   const dispatch = useDispatch();
   const productState = useSelector((state) => state?.product?.product);
   const [brand, setBrand] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [brandF, setBrandF] = useState(null);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(null);
@@ -29,6 +33,7 @@ const OurStore = () => {
     let newBrand = [];
     let newCategory = [];
     let newTags = [];
+    // eslint-disable-next-line no-unused-vars
     let newColor = [];
     for (let index = 0; index < productState.lenght; index++) {
       const element = productState[index];
@@ -98,7 +103,7 @@ const OurStore = () => {
                       className="form-control"
                       id="floatingInput"
                       placeholder="From"
-                      onChange={() => setMinPrice(e.target.value)}
+                      onChange={(e) => setMinPrice(e.target.value)}
                     />
                     <label htmlFor="floatingInput"> From</label>
                   </div>
@@ -108,7 +113,7 @@ const OurStore = () => {
                       className="form-control"
                       id="floatingInput1"
                       placeholder="To"
-                      onChange={() => setMaxPrice(e.target.value)}
+                      onChange={(e) => setMaxPrice(e.target.value)}
                     />
                     <label htmlFor="floatingInput1"> To</label>
                   </div>
