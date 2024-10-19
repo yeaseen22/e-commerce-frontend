@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     getblogs();
     getallProducts();
-  });
+  },[]);
   const getblogs = () => {
     dispatch(getAllBlogs());
   };

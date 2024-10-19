@@ -48,7 +48,7 @@ const OurStore = () => {
     setCategories(newCategory);
     setTags(newTags);
     // setColors(newColor);
-  }, [productState, sort, tag, brand, category, minPrice, maxPrice]);
+  }, [productState, sort, tag, category, minPrice, maxPrice]);
 
   useEffect(() => {
     getProducts();

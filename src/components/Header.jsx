@@ -1,14 +1,13 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState ,useEffect} from "react";
-import { Link, NavLink,useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import {Typeahead} from 'react-bootstrap-typeahead';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
-import {getAProduct} from "../features/products/productSlice";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { getAProduct } from "../features/products/productSlice";
 
 const Header = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
@@ -16,8 +15,8 @@ const Header = () => {
   const productState = useSelector((state) => state?.product?.product);
   const [total, setTotal] = useState(null);
   // eslint-disable-next-line no-unused-vars
-  const [paginate, setPaginare] = useState(true)
-  const [productOpt, setProductOpt] = useState([])
+  const [paginate, setPaginare] = useState(true);
+  const [productOpt, setProductOpt] = useState([]);
 
   useEffect(() => {
     let sum = 0;
@@ -31,19 +30,18 @@ const Header = () => {
 
   useEffect(() => {
     let data = [];
-    for(let index=0; index <productState?.length; index++){
+    for (let index = 0; index < productState?.length; index++) {
       const element = productState[index];
-      data.push({id: index, prod: element?._id, name: element?.name})
+      data.push({ id: index, prod: element?._id, name: element?.name });
     }
-    setProductOpt(data)
-  },[productState])
-
+    setProductOpt(data);
+  }, [productState]);
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
     window.location.href = "/login";
-  }
+  };
 
   return (
     <>
@@ -57,10 +55,10 @@ const Header = () => {
             </div>
             <div className="col-6">
               <p className="text-end mb-0 text-white">
-                Hotline:{" "}
+                Hotline:
                 <a className="text-white" href="tel: +88 01708044344<">
                   +88 01708044344
-                </a>{" "}
+                </a>
               </p>
             </div>
           </div>
@@ -83,7 +81,7 @@ const Header = () => {
                   aria-label="Search Product Here..."
                   aria-describedby="basic-addon2"
                 /> */}
-                <Typeahead 
+                <Typeahead
                   id="basic-example"
                   onPaginate={() => console.log()}
                   options={productOpt}
@@ -91,8 +89,8 @@ const Header = () => {
                   placeholder="Search Product Here..."
                   labelKey={"name"}
                   onChange={(selected) => {
-                    navigate(`/product/${selected[0]?.prod}`)
-                    dispatch(getAProduct(selected[0]?.prod))
+                    navigate(`/product/${selected[0]?.prod}`);
+                    dispatch(getAProduct(selected[0]?.prod));
                   }}
                   minLength={2}
                 />
@@ -109,7 +107,7 @@ const Header = () => {
                             align-items-center justify-content-between"
               >
                 <div>
-                  {/* <Link
+                  <Link
                     to="/compare-product"
                     className="d-flex align-items-center gap-10 text-white"
                   >
@@ -117,7 +115,7 @@ const Header = () => {
                     <p className="mb-0 ">
                       Compare <br /> Product{" "}
                     </p>
-                  </Link> */}
+                  </Link>
                 </div>
                 <div>
                   <Link
@@ -132,22 +130,20 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to={authState?.user ===null ?  "/login" : "my-profile"}
+                    to={authState?.user === null ? "/login" : "my-profile"}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="images/user.svg" alt="user" />
-                    {
-                      authState?.user ===null ? (
-                        <p className="mb-0">
-                          Login <br /> My Account
-                        </p>
-                      ) : (
-                        <p className="mb-0">
-                          Welcome
-                          {authState?.user?.firstname}
-                        </p>
-                      )
-                    }
+                    {authState?.user === null ? (
+                      <p className="mb-0">
+                        Login <br /> My Account
+                      </p>
+                    ) : (
+                      <p className="mb-0">
+                        Welcome
+                        {authState?.user?.firstname}
+                      </p>
+                    )}
                   </Link>
                 </div>
                 <div>
@@ -217,7 +213,13 @@ const Header = () => {
                     <NavLink to="/my-orders">Orders</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-                    <button onClick={handleLogout} type="button" className="border border-0 bg-transparent text-white text-uppercase">Logout</button>
+                    <button
+                      onClick={handleLogout}
+                      type="button"
+                      className="border border-0 bg-transparent text-white text-uppercase"
+                    >
+                      Logout
+                    </button>
                   </d>
                 </div>
               </div>

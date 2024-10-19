@@ -20,6 +20,7 @@ const loginSchema = yup.object({
 
 const Login = () => {
     const authState = useSelector((state) => state?.auth)
+    const { isSuccess, isError } = authState;
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const formik = useFormik({
@@ -29,12 +30,7 @@ const Login = () => {
         },
         validationSchema: loginSchema,
         onSubmit: (values) => {
-           dispatch(loginUser(values))
-            setTimeout(() => {
-                if(authState?.isSuccess){
-                    navigate('/')
-                }
-            },300)
+            dispatch(loginUser(values))
         },
     });
 
@@ -56,7 +52,7 @@ const Login = () => {
                                     name='email'
                                     placeholder='Email'
                                     onChange={formik.handleChange("email")}
-                                    onBlur={formik.onBlur("email")}
+                                    onBlur={formik.handleBlur("email")}
                                     value={formik.values.email}
                                 />
                                 <div className="error">
@@ -68,7 +64,7 @@ const Login = () => {
                                     name='password'
                                     placeholder='Password'
                                     onChange={formik.handleChange("password")}
-                                    onBlur={formik.onBlur("password")}
+                                    onBlur={formik.handleBlur("password")}
                                     value={formik.values.password}
                                 />
                                 <div className="error">
@@ -77,7 +73,7 @@ const Login = () => {
                                 <div>
                                     <Link to='/forgot-password'>Forgot Password?</Link>
                                     <div className='mt-3 d-flex justify-content-center align-items-center gap-15'>
-                                        <button className='button border-0'>Login</button>
+                                        <button onClick={() => isSuccess===true ? navigate('/') : false } className='button border-0'>Login</button>
                                         <Link to='/signup' className='button signup text-white'> Sign Up </Link>
                                     </div>
                                 </div>

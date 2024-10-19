@@ -44,12 +44,12 @@ const ProductCard = (props) => {
                 <img
                   className="img-fluid d-block mx-auto"
                   width={160}
-                  src={item?.images[0].url}
+                  src={item?.images[0]?.url}
                   alt="product image"
                 />
                 <img
                   className="img-fluid d-block mx-auto"
-                  src={item?.images[0].url}
+                  src={item?.images[0]?.url}
                   width={160}
                   alt="product image"
                 />
@@ -60,7 +60,7 @@ const ProductCard = (props) => {
                 <ReactStars
                   count={5}
                   size={24}
-                  value={item?.totalrating.toString()}
+                  value={item?.totalrating?.toString()}
                   edit={false}
                   activeColor="#ffd700"
                 />
@@ -142,15 +142,15 @@ const ProductCard = (props) => {
               <div className="action-bar position-absolute">
                 <div className="d-flex flex-column gap-15">
                   <button className="border-0 bg-transparent">
-                    {" "}
+                   
                     <img src="images/prodcompare.svg" alt="compare" />
                   </button>
                   <button className="border-0 bg-transparent">
-                    {" "}
+                    
                     <img src="images/view.svg" alt="addcart" />
                   </button>
                   <button className="border-0 bg-transparent">
-                    {" "}
+                    
                     <img src="images/add-cart.svg" alt="addcart" />
                   </button>
                 </div>
