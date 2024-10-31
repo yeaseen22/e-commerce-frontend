@@ -3,7 +3,6 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist } from "../features/products/productSlice";
 
@@ -24,9 +23,8 @@ const ProductCard = (props) => {
         return (
           <div
             key={index}
-            className={`${
-              location.pathname == "/product" ? `gr-${grid}` : "col-3"
-            }`}
+            className={`${location.pathname == "/product" ? `gr-${grid}` : "col-3"
+              }`}
           >
             <div to=":id" className="product-card position-relative ">
               <div className="wishlist-icon position-absolute">
@@ -57,18 +55,17 @@ const ProductCard = (props) => {
               <div className="product-details">
                 <h6 className="brand">{item?.title}</h6>
                 <h5 className="product-title">{item?.description}</h5>
-                <ReactStars
+                {/* <ReactStars
                   count={5}
                   size={24}
                   value={item?.totalrating?.toString()}
                   edit={false}
                   activeColor="#ffd700"
-                />
+                /> */}
                 <p
-                  className={`description ${
-                    grid === 12 ? "d-block" : "d-none"
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: item?.description }}
+                  className={`description ${grid === 12 ? "d-block" : "d-none"
+                    }`}
+                  dangerouslySetInnerHTML={{ __html: item?.description || "" }}
                 >
                   {item?.description}
                 </p>
@@ -95,9 +92,8 @@ const ProductCard = (props) => {
         return (
           <div
             key={index}
-            className={`${
-              location.pathname == "/store" ? `gr-${grid}` : "col-3"
-            }`}
+            className={`${location.pathname == "/store" ? `gr-${grid}` : "col-3"
+              }`}
           >
             <Link to=":id" className="product-card position-relative ">
               <div className="wishlist-icon position-absolute">
@@ -122,17 +118,16 @@ const ProductCard = (props) => {
               <div className="product-details">
                 <h6 className="brand">Havles</h6>
                 <h5 className="product-title">Title</h5>
-                <ReactStars
+                {/* <ReactStars
                   count={5}
                   size={24}
                   value="4"
                   edit={false}
                   activeColor="#ffd700"
-                />
+                /> */}
                 <p
-                  className={`description ${
-                    grid === 12 ? "d-block" : "d-none"
-                  }`}
+                  className={`description ${grid === 12 ? "d-block" : "d-none"
+                    }`}
                 >
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                   Quasi unde cum rerum.
@@ -142,15 +137,15 @@ const ProductCard = (props) => {
               <div className="action-bar position-absolute">
                 <div className="d-flex flex-column gap-15">
                   <button className="border-0 bg-transparent">
-                   
+
                     <img src="images/prodcompare.svg" alt="compare" />
                   </button>
                   <button className="border-0 bg-transparent">
-                    
+
                     <img src="images/view.svg" alt="addcart" />
                   </button>
                   <button className="border-0 bg-transparent">
-                    
+
                     <img src="images/add-cart.svg" alt="addcart" />
                   </button>
                 </div>

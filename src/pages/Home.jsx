@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
-// import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import { services } from "../utils/Data";
@@ -25,7 +25,9 @@ const Home = () => {
   useEffect(() => {
     getblogs();
     getallProducts();
-  },[]);
+  }, []);
+
+
   const getblogs = () => {
     dispatch(getAllBlogs());
   };
@@ -44,9 +46,7 @@ const Home = () => {
         <div className="row">
           <div className="col-6">
             <div
-              className="main-banner
-                                 position-relative
-                                  "
+              className="main-banner position-relative"
             >
               <img
                 src="images/main-banner-1.jpg"
@@ -57,7 +57,7 @@ const Home = () => {
                 className="main-banner-content
                                     position-absolute"
               >
-                <h4>Supercharged For Pro</h4>
+                <h4>NEW ARRIVAL</h4>
                 <h5>iPad S13+ Pro.</h5>
                 <p>
                   From $999.00 <br /> or $41.62/mo
@@ -87,7 +87,7 @@ const Home = () => {
                   className="small-banner-content
                                         position-absolute"
                 >
-                  <h4>Supercharged For Pro</h4>
+                  <h4>NEW ARRIVAL</h4>
                   <h5>iPad S13+ Pro.</h5>
                   <p>
                     From $999.00 <br /> or $41.62/mo
@@ -147,7 +147,7 @@ const Home = () => {
                   className="small-banner-content
                                       position-absolute"
                 >
-                  <h4>Supercharged For Pro</h4>
+                  <h4>NEW ARRIVAL</h4>
                   <h5>iPad S13+ Pro.</h5>
                   <p>
                     From $999.00 <br /> or $41.62/mo
@@ -334,13 +334,13 @@ const Home = () => {
                       <div className="product-details">
                         <h6 className="brand">{item?.title}</h6>
                         <h5 className="product-title">{item?.description}</h5>
-                        <ReactStars
+                        {/* <ReactStars
                           count={5}
                           size={24}
                           value={item?.totalrating.toString()}
                           edit={false}
                           activeColor="#ffd700"
-                        />
+                        /> */}
                         {/* <p className={`description ${grid === 12 ? 'd-block' : 'd-none'}`}
                                                     dangerouslySetInnerHTML={{ __html: item?.description }}
                                                 >
@@ -452,7 +452,7 @@ const Home = () => {
                     id={item?._id}
                     brand={item?.brand}
                     title={item?.title}
-                    totalrating={totalrating}
+                    totalrating={item?.totalrating}
                     price={item?.price}
                     sold={item?.sold}
                     quantity={item?.quantity}
@@ -502,13 +502,13 @@ const Home = () => {
                       <div className="product-details">
                         <h6 className="brand">{item?.title}</h6>
                         <h5 className="product-title">{item?.description}</h5>
-                        <ReactStars
+                        {/* <ReactStars
                           count={5}
                           size={24}
                           value={item?.totalrating.toString()}
                           edit={false}
                           activeColor="#ffd700"
-                        />
+                        /> */}
                         {/* <p className={`description ${grid === 12 ? 'd-block' : 'd-none'}`}
                                                     dangerouslySetInnerHTML={{ __html: item?.description }}
                                                 >
@@ -524,7 +524,7 @@ const Home = () => {
                           </button>
                           <button className="border-0 bg-transparent">
                             {" "}
-                            <img onClick={() => naviage('/product/'+item?._id)} src="images/view.svg" alt="addcart" />
+                            <img onClick={() => naviage('/product/' + item?._id)} src="images/view.svg" alt="addcart" />
                           </button>
                           <button className="border-0 bg-transparent">
                             {" "}
