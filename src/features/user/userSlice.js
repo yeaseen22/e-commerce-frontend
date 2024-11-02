@@ -104,7 +104,7 @@ export const getOrders = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   "user/profile/get",
-  async (data, thunkAPI) => {
+  async (data,thunkAPI) => {
     try {
       return await authService.updateUser(data);
     } catch (error) {
@@ -171,7 +171,7 @@ export const authSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
         if (state.isError === true) {
-          toast.error(action.error);
+          toast.error(action.payload.response.data.message);
         }
       })
       .addCase(loginUser.pending, (state) => {
@@ -193,7 +193,7 @@ export const authSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
         if (state.isError === true) {
-          toast.error(action.error);
+          toast.error(action.payload.response.data.message);
         }
       })
       .addCase(getUserProductWishlist.pending, (state) => {

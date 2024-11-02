@@ -22,7 +22,7 @@ const ProductCard = (props) => {
       {data?.map((item, index) => {
         return (
           <div
-            key={index}
+            key={index+i}
             className={`${location.pathname == "/product" ? `gr-${grid}` : "col-3"
               }`}
           >

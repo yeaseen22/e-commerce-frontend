@@ -58,7 +58,7 @@ const SignUp = () => {
                                     onChange={formik.handleChange("firstname")}
                                     onBlur={formik.handleBlur("firstname")}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.firstname && formik.errors.firstname}
                                 </div>
 
@@ -71,7 +71,7 @@ const SignUp = () => {
                                     onChange={formik.handleChange("lastname")}
                                     onBlur={formik.handleBlur("lastname")}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.lastname && formik.errors.lastname}
                                 </div>
 
@@ -83,7 +83,7 @@ const SignUp = () => {
                                     onChange={formik.handleChange("email")}
                                     onBlur={formik.handleBlur("email")}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.email && formik.errors.email}
                                 </div>
 
@@ -96,7 +96,7 @@ const SignUp = () => {
                                     onChange={formik.handleChange("mobile")}
                                     onBlur={formik.handleBlur("mobile")}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.mobile && formik.errors.mobile}
                                 </div>
 
@@ -110,7 +110,7 @@ const SignUp = () => {
                                     onChange={formik.handleChange("password")}
                                     onBlur={formik.handleBlur("password")}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.password && formik.errors.password}
                                 </div>
 

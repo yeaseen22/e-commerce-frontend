@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../features/user/userSlice";
 import { FiEdit } from "react-icons/fi";
+import { config } from "../utils/axiosConfig";
 
 const profileSchema = yup.object({
   firstname: yup.string().required("First Name Is Required"),
@@ -32,7 +33,7 @@ const Profile = () => {
     },
     validationSchema: profileSchema,
     onSubmit: (values) => {
-      dispatch(updateProfile(values));
+      dispatch(updateProfile({data: values, config: config}));
       setEdit(true)
     },
   });

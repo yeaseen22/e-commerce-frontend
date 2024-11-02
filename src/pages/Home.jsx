@@ -18,6 +18,8 @@ const Home = () => {
   const naviage = useNavigate();
   const blogState = useSelector((state) => state?.blog?.singleBlog);
   const productState = useSelector((state) => state?.product?.product);
+  console.log('product state',productState);
+  
 
   const location = useLocation();
   // eslint-disable-next-line no-unused-vars
@@ -355,7 +357,7 @@ const Home = () => {
                             <img src="images/prodcompare.svg" alt="compare" />
                           </button> */}
                           <button
-                            onClick={() => naviage("/product/" + item?._id)}
+                            onClick={() => naviage("/product" + "/" + item?._id)}
                             className="border-0 bg-transparent"
                           >
                             {" "}
@@ -445,7 +447,7 @@ const Home = () => {
         <div className="row">
           {productState &&
             productState?.map((item, index) => {
-              if (item?.tags === "special") {
+              if (item?.tags[0] === "special") {
                 return (
                   <SpecialProduct
                     key={index}
@@ -471,7 +473,8 @@ const Home = () => {
         <div className="row">
           {productState &&
             productState?.map((item, index) => {
-              if (item.tags === "popular") {
+              console.log('popular item',item.tags);
+              if (item.tags[0] === "popular") {
                 return (
                   <div key={index} className={"col-3"}>
                     <div to=":id" className="product-card position-relative ">

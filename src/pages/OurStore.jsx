@@ -53,6 +53,8 @@ const OurStore = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  
   const getProducts = () => {
     dispatch(
       getAllProducts({ sort, tag, brand, category, minPrice, maxPrice })

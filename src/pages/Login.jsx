@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Meta from '../components/Meta'
 import BreadCrumb from '../components/BreadCrumb'
 import { Link } from 'react-router-dom'
@@ -31,8 +31,15 @@ const Login = () => {
         validationSchema: loginSchema,
         onSubmit: (values) => {
             dispatch(loginUser(values))
+            localStorage.getItem("customer")
         },
     });
+
+    useEffect(() => {
+        if(authState.user !== null){
+            navigate('/')
+        }
+    },[authState])
 
     return (
         <>
@@ -43,7 +50,7 @@ const Login = () => {
                     <div className="col-12">
                         <div className="auth-card">
                             <h3 className='text-center mb-3'></h3>
-                            <form onSubmit={formik.handleSubmit} action="" className='d-flex flex-column gap-30'>
+                            <form onSubmit={formik.handleSubmit} action="" className='d-flex flex-column gap-15'>
                                 {/* <div>
                                     <input type="email" name='email' className="form-control" placeholder='Email' />
                                 </div> */}
@@ -55,7 +62,7 @@ const Login = () => {
                                     onBlur={formik.handleBlur("email")}
                                     value={formik.values.email}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.email && formik.errors.email}
                                 </div>
 
@@ -67,13 +74,13 @@ const Login = () => {
                                     onBlur={formik.handleBlur("password")}
                                     value={formik.values.password}
                                 />
-                                <div className="error">
+                                <div className="errors">
                                     {formik.touched.password && formik.errors.password}
                                 </div>
                                 <div>
                                     <Link to='/forgot-password'>Forgot Password?</Link>
                                     <div className='mt-3 d-flex justify-content-center align-items-center gap-15'>
-                                        <button onClick={() => isSuccess===true ? navigate('/') : false } className='button border-0'>Login</button>
+                                        <button type='submit' onClick={() => isSuccess===true ? navigate('/') : false } className='button border-0'>Login</button>
                                         <Link to='/signup' className='button signup text-white'> Sign Up </Link>
                                     </div>
                                 </div>
