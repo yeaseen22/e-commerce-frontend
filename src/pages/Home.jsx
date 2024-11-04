@@ -298,14 +298,18 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="featured-wrapper home-wrapper-2 py-5">
+
+      <Container class1="featured-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
-            <h3 className="section-heading">Featured Collection</h3>
+            <h3 className="section-heading">Our Featured Products</h3>
           </div>
+        </div>
+        <div className="row">
           {productState &&
             productState?.map((item, index) => {
-              if (item.tags === "featured") {
+              console.log('popular item',item.tags);
+              if (item.tags[0] === "featured") {
                 return (
                   <div key={index} className={"col-3"}>
                     <div to=":id" className="product-card position-relative ">
@@ -324,12 +328,6 @@ const Home = () => {
                           className="img-fluid d-block mx-auto"
                           width={160}
                           src={item?.images[0].url}
-                          alt="product image"
-                        />
-                        <img
-                          className="img-fluid d-block mx-auto"
-                          src={item?.images[0].url}
-                          width={160}
                           alt="product image"
                         />
                       </div>
@@ -352,21 +350,18 @@ const Home = () => {
                       </div>
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
-                          {/* <button className="border-0 bg-transparent">
+                          <button className="border-0 bg-transparent">
                             {" "}
                             <img src="images/prodcompare.svg" alt="compare" />
-                          </button> */}
-                          <button
-                            onClick={() => naviage("/product" + "/" + item?._id)}
-                            className="border-0 bg-transparent"
-                          >
-                            {" "}
-                            <img src="images/view.svg" alt="addcart" />
                           </button>
-                          {/* <button className="border-0 bg-transparent">
+                          <button className="border-0 bg-transparent">
+                            {" "}
+                            <img onClick={() => naviage('/product/' + item?._id)} src="images/view.svg" alt="addcart" />
+                          </button>
+                          <button className="border-0 bg-transparent">
                             {" "}
                             <img src="images/add-cart.svg" alt="addcart" />
-                          </button> */}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -376,7 +371,83 @@ const Home = () => {
             })}
         </div>
       </Container>
-      <Container class1="famous-wrapper py-5 home-wrapper-2">
+
+      {/* <Container class1="featured-wrapper home-wrapper-2 py-5">
+        <div className="row">
+          <div className="col-12">
+            <h3 className="section-heading">Featured Collection</h3>
+          </div>
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "featured") {
+                return (
+                  <div key={index} className={"col-3"}>
+                    <div to=":id" className="product-card position-relative">
+                      <div className="wishlist-icon position-absolute">
+                        <button
+                          onClick={(e) => {
+                            addToWish(item?._id);
+                          }}
+                          className="border-0 bg-transparent"
+                        >
+                          <img src="images/wish.svg" alt="wishlist" />
+                        </button>
+                      </div>
+                      <div className="product-image">
+                        <img
+                          className="img-fluid d-block mx-auto"
+                          width={160}
+                          src={item?.images[0].url}
+                          alt="product image"
+                        />
+                     
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.title}</h6>
+                        <h5 className="product-title">{item?.description}</h5> */}
+                        {/* <ReactStars
+                          count={5}
+                          size={24}
+                          value={item?.totalrating.toString()}
+                          edit={false}
+                          activeColor="#ffd700"
+                        /> */}
+                        {/* <p className={`description ${grid === 12 ? 'd-block' : 'd-none'}`}
+                                                    dangerouslySetInnerHTML={{ __html: item?.description }}
+                                                >
+                                                    {item?.description}
+                                                </p> */}
+                        {/* <p className="price">$ {item?.price}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15"> */}
+                          {/* <button className="border-0 bg-transparent">
+                            {" "}
+                            <img src="images/prodcompare.svg" alt="compare" />
+                          </button> */}
+                          {/* <button
+                            onClick={() => naviage("/product" + "/" + item?._id)}
+                            className="border-0 bg-transparent"
+                          >
+                            {" "}
+                            <img src="images/view.svg" alt="addcart" />
+                          </button> */}
+                          {/* <button className="border-0 bg-transparent">
+                            {" "}
+                            <img src="images/add-cart.svg" alt="addcart" />
+                          </button> */}
+                        {/* </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+        </div>
+      </Container> */}
+
+
+      {/* <Container class1="famous-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-3">
             <div className="famous-card position-relative">
@@ -437,7 +508,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
+
+
       <Container class1="special-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
@@ -495,12 +568,7 @@ const Home = () => {
                           src={item?.images[0].url}
                           alt="product image"
                         />
-                        <img
-                          className="img-fluid d-block mx-auto"
-                          src={item?.images[0].url}
-                          width={160}
-                          alt="product image"
-                        />
+                      
                       </div>
                       <div className="product-details">
                         <h6 className="brand">{item?.title}</h6>
@@ -542,6 +610,8 @@ const Home = () => {
             })}
         </div>
       </Container>
+
+
       <Container class1="marque-wrapper py-5">
         <div className="row">
           <div className="col-12">
