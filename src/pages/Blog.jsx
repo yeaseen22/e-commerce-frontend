@@ -4,7 +4,7 @@ import BreadCrumb from '../components/BreadCrumb'
 import BlogCard from "../components/BlogCard";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBlogs } from "../features/blogs/blogSlice";
+import { getAllBlogs,getBlog } from "../features/blogs/blogSlice";
 import moment from 'moment'
 
 
@@ -12,7 +12,7 @@ const Blog = () => {
     const blogState = useSelector((state) => state?.blog?.blog)
     const dispatch = useDispatch();
     useEffect(() => {
-        getAllBlogs()
+        getBlogs()
     }, [])
     const getBlogs = () => {
         dispatch(getAllBlogs())
